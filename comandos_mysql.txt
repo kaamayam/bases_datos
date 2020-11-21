@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 `id` varchar(10) PRIMARY KEY,
      `nombre` varchar (100) NOT NULL,
      `dir` varchar (100) NOT NULL,
-     `tel` varchar (100) UNIQUE,
+     `tel` varchar (10) UNIQUE,
      `email` varchar (100) UNIQUE,
-     `fecha_nac` varchar (100)
+     `fecha_nac` date
 );
 
 INSERT INTO `clientes` (`id`, `nombre`,`dir`, `tel`, `email`,`fecha_nac`) 
@@ -45,8 +45,8 @@ codigo int PRIMARY KEY AUTO_INCREMENT,
     descuento numeric NOT NULL,
     total numeric NOT NULL,
     forma_pago varchar(50) NOT NULL,
-    id_cliente varchar(10),
-    id_local char(1),
+    id_cliente varchar(10) NOT NULL,
+    id_local char(1) NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id),
     FOREIGN KEY (id_local) REFERENCES locales(id)
 );
@@ -54,13 +54,24 @@ codigo int PRIMARY KEY AUTO_INCREMENT,
 -- Creacion de tabla detalle_ventas
 CREATE TABLE IF NOT EXISTS detalle_ventas(
     cod_venta int NOT NULL, 
-    id_detalle int AUTO_INCREMENT, 
-    cod_producto int,
-    cantidad int NOT NULL,
+    id_detalle int NOT NULL, 
+    cod_producto int NOT NULL,
+    cantidad numeric NOT NULL,
     FOREIGN KEY (cod_venta) REFERENCES ventas(codigo),
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
-CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
+CONSTRAINT PK_DET_VENTAS PRIMARY KEY 
 (cod_venta, id_detalle));
+
+
+-- Creacion de tabla empleados
+CREATE TABLE IF NOT EXISTS `empleados` (  
+`id` varchar(10) PRIMARY KEY,
+     `nombre` varchar (100) NOT NULL,
+     `tel` varchar (10) UNIQUE,
+     `salario` numeric,
+     `id_local` char (1) NOT NULL,
+     FOREIGN KEY (id_local) REFERENCES locales(id)
+);
 
 -- Creacion de tabla inventarios
 CREATE TABLE IF NOT EXISTS inventarios(
@@ -68,8 +79,37 @@ CREATE TABLE IF NOT EXISTS inventarios(
     cod_producto int,
     existencia numeric NOT NULL,
     FOREIGN KEY (id_local) REFERENCES locales(id),
-	FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
 CONSTRAINT PK_INVENTARIOS PRIMARY KEY 
 (id_local, cod_producto));
 
 
+-- Creacion de tabla proveedores
+CREATE TABLE IF NOT EXISTS `proveedores` (  
+`nit` varchar(100) PRIMARY KEY,
+     `nombre` varchar (100) NOT NULL,
+     `dir` varchar (100) NOT NULL,
+     `tel` varchar (10) UNIQUE NOT NULL,
+     `email` varchar (100) UNIQUE NOT NULL,
+     `pag_web` varchar (100)
+);
+
+-- Creacion de tabla compras
+CREATE TABLE IF NOT EXISTS compras( 
+	codigo int PRIMARY KEY AUTO_INCREMENT,
+    fecha date NOT NULL,
+    total numeric NOT NULL,
+    nit_proveedor varchar(10) NOT NULL,
+    FOREIGN KEY (nit_proveedor) REFERENCES proveedores(nit)
+);
+
+-- Creacion de tabla detalle_compras
+CREATE TABLE IF NOT EXISTS detalle_compras(
+    cod_compra int NOT NULL, 
+    id_detalle int NOT NULL, 
+    cod_producto int NOT NULL,
+    cantidad numeric NOT NULL,
+    FOREIGN KEY (cod_compra) REFERENCES compras(codigo),
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
+CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
+(cod_compra, id_detalle));
