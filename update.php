@@ -64,19 +64,19 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Check input errors before inserting in database
     if(empty($nombre_err) && empty($dir_err) && empty($tel_err) && empty($email_err) &&  empty($fecha_nac_err)){
         // Prepare an insert statement
-        $sql = "UPDATE clientes (id, nombre, dir, tel, email, fecha_nac) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE clientes SET nombre=?, dir=?, tel=?, email=?, fecha_nac=?  WHERE id=?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt,"issssss", $param_id, $param_nombre, $param_dir, $param_tel, $param_email, $param_fecha_nac);
+            mysqli_stmt_bind_param($stmt,"sssssi", $param_nombre, $param_dir, $param_tel, $param_email, $param_fecha_nac, $param_id);
             
             // Set parameters
-            $param_id = $id;
             $param_nombre = $nombre;
             $param_dir = $dir;
             $param_tel = $tel;
             $param_email = $email;
             $param_fecha_nac = $fecha_nac;
-
+            $param_id = $id;
+            
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -91,7 +91,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         // Close statement
         mysqli_stmt_close($stmt);
     }
-    
     // Close connection
     mysqli_close($link);
 } else{
