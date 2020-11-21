@@ -1,3 +1,25 @@
+// esta conexion se hace con la base de datos para buscar por nombres o id
+<?php
+	include_once 'config.php';
+	$sentencia_select=$con->prepare('SELECT *FROM ferreamayadb ORDER BY id DESC');
+	$sentencia_select->execute();
+	$resultado=$sentencia_select->fetchAll();
+
+	// metodo buscar
+	if(isset($_POST['btn_buscar'])){
+		$buscar_text=$_POST['buscar'];
+		$select_buscar=$con->prepare(
+            'SELECT *FROM ferreamayadb WHERE nombre LIKE :campo;'
+		);
+
+		$select_buscar->execute(array(
+			':campo' =>"%".$buscar_text."%"
+		));
+
+		$resultado=$select_buscar->fetchAll();
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +66,7 @@
                     require_once "config.php";
                     
                     // Attempt select query execution
-                    $sql = "SELECT * FROM clientes";
+                    $sql = "SELECT * FROM ferreamayadb";
 
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
