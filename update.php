@@ -16,8 +16,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     $input_id = trim($_POST["id"]);
     if(empty($input_id)){
         $id_err = "Ingrese un id.";
-    } elseif(!ctype_digit($input_id)){
-        $id_err = "Por favor verifique su identificación";
     } else{
         $id = $input_id;
     }
@@ -66,10 +64,10 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Check input errors before inserting in database
     if(empty($nombre_err) && empty($dir_err) && empty($tel_err) && empty($email_err) &&  empty($fecha_nac_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO clientes (id, nombre, dir, tel, email, fecha_nac) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "UPDATE clientes (id, nombre, dir, tel, email, fecha_nac) VALUES (?, ?, ?, ?, ?, ?)";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, $param_id, $param_nombre, $param_dir, $param_tel, $param_email, $param_fecha_nac);
+            mysqli_stmt_bind_param($stmt,"issssss", $param_id, $param_nombre, $param_dir, $param_tel, $param_email, $param_fecha_nac);
             
             // Set parameters
             $param_id = $id;
@@ -96,6 +94,57 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     
     // Close connection
     mysqli_close($link);
+} else{
+    // Check existence of id parameter before processing further
+    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+        // Get URL parameter
+        $id =  trim($_GET["id"]);
+        
+        // Prepare a select statement
+        $sql = "SELECT * FROM clientes WHERE id = ?";
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "i", $param_id);
+            
+            // Set parameters
+            $param_id = $id;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                $result = mysqli_stmt_get_result($stmt);
+    
+                if(mysqli_num_rows($result) == 1){
+                    /* Fetch result row as an associative array. Since the result set
+                    contains only one row, we don't need to use while loop */
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    
+                    $param_id = $row["id"];
+                    $param_nombre = $row["nombre"];
+                    $param_dir = $row["dir"];
+                    $param_tel = $row["tel"];
+                    $param_email =$row["email"];
+                    $param_fecha_nac = $row["fecha_nac"];
+                } else{
+                    // URL doesn't contain valid id. Redirect to error page
+                    header("location: error.php");
+                    exit();
+                }
+                
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+        
+        // Close statement
+        mysqli_stmt_close($stmt);
+        
+        // Close connection
+        mysqli_close($link);
+    }  else{
+        // URL doesn't contain id parameter. Redirect to error page
+        header("location: error.php");
+        exit();
+    }
 }
 ?>
  
@@ -121,39 +170,46 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                         <h2>Actualizar registros</h2>
                     </div>
                     <p>Por favor edite y suba los cambios</p>
-                    <form action="<?php echo htmlspecialchars(basenombre($_SERVER['REQUEST_URI'])); ?>" method="post">
-                         <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
-                            <label>id</label>
-                            <input type="text" nombre="id" class="form-control" value="<?php echo $id; ?>">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+
+                        <div class="form-group <?php echo (!empty($id_err)) ? 'has-error' : ''; ?>">
+                            <label>Identificacion</label>
+                            <input type="text" name="id" class="form-control" value="<?php echo $id; ?>">
                             <span class="help-block"><?php echo $id_err;?></span>
                         </div>
+
+
                         <div class="form-group <?php echo (!empty($nombre_err)) ? 'has-error' : ''; ?>">
-                            <label>nombre</label>
-                            <input type="text" nombre="nombre" class="form-control" value="<?php echo $nombre; ?>">
+                            <label>Nombre</label>
+                            <input type="text" name="nombre" class="form-control" value="<?php echo $nombre; ?>">
                             <span class="help-block"><?php echo $nombre_err;?></span>
                         </div>
+
                         <div class="form-group <?php echo (!empty($dir_err)) ? 'has-error' : ''; ?>">
-                            <label>dir</label>
-                            <textarea nombre="dir" class="form-control"><?php echo $dir; ?></textarea>
+                            <label>Direccion</label>
+                            <input type="text" name="dir" class="form-control" value="<?php echo $dir; ?>">
                             <span class="help-block"><?php echo $dir_err;?></span>
                         </div>
-                        <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
-                            <label>email</label>
-                            <input type="text" nombre="email" class="form-control" value="<?php echo $email; ?>">
-                            <span class="help-block"><?php echo $email_err;?></span>
-                        </div>
+
                         <div class="form-group <?php echo (!empty($tel_err)) ? 'has-error' : ''; ?>">
-                            <label>Tel</label>
-                            <textarea nombre="tel" class="form-control"><?php echo $tel; ?></textarea>
+                            <label>Telefono</label>
+                            <input type="text" name="tel" class="form-control" value="<?php echo $tel; ?>">
                             <span class="help-block"><?php echo $tel_err;?></span>
                         </div>
+
+                        <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
+                            <label>Email</label>
+                            <textarea name="email" class="form-control"><?php echo $email; ?></textarea>
+                            <span class="help-block"><?php echo $email_err;?></span>
+                        </div>
+
                         <div class="form-group <?php echo (!empty($fecha_nac_err)) ? 'has-error' : ''; ?>">
-                            <label>Fecha</label>
-                            <textarea nombre="fecha_nac" class="form-control"><?php echo $fecha_nac; ?></textarea>
+                            <label>Fecha de nacimimiento</label>
+                            <input type="text" name="fecha_nac" class="form-control" value="<?php echo $fecha_nac; ?>">
                             <span class="help-block"><?php echo $fecha_nac_err;?></span>
                         </div>
 
-                        <input type="hidden" nombre="id" value="<?php echo $id; ?>"/>
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-default">Cancel</a>
                     </form>
