@@ -73,41 +73,41 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h1>View Record</h1>
+                        <h1>Ver detalles del Cliente</h1>
                     </div>
 
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Identificacion</label>
                         <p class="form-control-static"><?php echo $row["id"]; ?></p>
                     </div>
 
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Nombre</label>
                         <p class="form-control-static"><?php echo $row["nombre"]; ?></p>
                     </div>
 
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Direccion </label>
                         <p class="form-control-static"><?php echo $row["dir"]; ?></p>
                     </div>
                     
                     <div class="form-group">
-                        <label>Address</label>
+                        <label>Telefono</label>
                         <p class="form-control-static"><?php echo $row["tel"]; ?></p>
                     </div>
                     
                     <div class="form-group">
-                        <label>Salary</label>
+                        <label>Email</label>
                         <p class="form-control-static"><?php echo $row["email"]; ?></p>
                     </div>
 
                     <div class="form-group">
-                        <label>Name</label>
+                        <label>Fecha Nacimiento</label>
                         <p class="form-control-static"><?php echo $row["fecha_nac"]; ?></p>
                     </div>
                     
                     
-                    <p><a href="index.php" class="btn btn-primary">Back</a></p>
+                    <p><a href="index.php" class="btn btn-primary">Volver</a></p>
                 </div>
             </div>        
         </div>
