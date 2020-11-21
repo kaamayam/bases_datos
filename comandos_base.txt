@@ -10,3 +10,5 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 INSERT INTO `clientes` (`id`, `nombre`,`dir`, `tel`, `email`,`fecha_nac`) 
 VALUES ('1020473355', 'Pedro Pedroza Pérez', 'Cr 50 # 66-171 Robledo', '4522353', 'pedro12@hotmail.com', '1990-11-23'),
 ('43734932', 'Juan Mazo Pérez', 'Cr 51 # 80-171 Robledo', '3042158029', 'Juancho@gmail.com', '1996-09-23');
+
+INSERT INTO `clientes` (`id`, `nombre`,`dir`, `tel`, `email`,`fecha_nac`) VALUES ('00011', 'Kaamaym', 'Cr 50 # 66-171 Pacheli', '666666', 'cual@hotmail.com', '1990');
