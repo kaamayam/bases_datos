@@ -53,12 +53,23 @@ codigo int PRIMARY KEY AUTO_INCREMENT,
 
 -- Creacion de tabla detalle_ventas
 CREATE TABLE IF NOT EXISTS detalle_ventas(
-    venta_id int NOT NULL, 
-    detalle_id int NOT NULL, 
-    producto_cod int,
+    cod_venta int NOT NULL, 
+    id_detalle int AUTO_INCREMENT, 
+    cod_producto int,
     cantidad int NOT NULL,
-    FOREIGN KEY (producto_cod) REFERENCES productos(codigo),
+    FOREIGN KEY (cod_venta) REFERENCES ventas(codigo),
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
 CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
-(venta_id,detalle_id));
+(cod_venta, id_detalle));
+
+-- Creacion de tabla inventarios
+CREATE TABLE IF NOT EXISTS inventarios(
+    id_local char (1), 
+    cod_producto int,
+    existencia numeric NOT NULL,
+    FOREIGN KEY (id_local) REFERENCES locales(id),
+	FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
+CONSTRAINT PK_INVENTARIOS PRIMARY KEY 
+(id_local, cod_producto));
 
 
