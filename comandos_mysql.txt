@@ -132,7 +132,8 @@ CREATE TABLE IF NOT EXISTS proveedores (
      dir varchar (100) NOT NULL,
      tel bigint NOT NULL,
      email varchar (100) UNIQUE NOT NULL,
-     pag_web varchar (100)
+     pag_web varchar (100),
+     CHECK (tel>=0 and tel < 10000000000)
 );
 
 INSERT INTO proveedores (nit, nombre, dir, tel, email, pag_web)
