@@ -44,7 +44,7 @@ VALUES (1, 'Martillo de uña', 'Herramienta', 30000, 'Este tipo de martillo es m
 
 -- Creacion de tabla ventas
 CREATE TABLE IF NOT EXISTS ventas( 
-codigo int PRIMARY KEY,
+	codigo int PRIMARY KEY,
     fecha date NOT NULL,
     descuento numeric NOT NULL,
     forma_pago varchar(50) NOT NULL,
@@ -55,16 +55,17 @@ codigo int PRIMARY KEY,
     CHECK (codigo>=0)
 );
 
-INSERT INTO ventas VALUES(1, 2, 'credito', 123, 1);
-INSERT INTO ventas VALUES(1, 3, 'debito', 1234, 2);
-INSERT INTO ventas VALUES(1, 2, 'en efectivo sumerce', 123, 2);
-INSERT INTO ventas VALUES(1, 2, 'en efectivo sumerce', 123, 2);
+INSERT INTO ventas VALUES(1,'1996-02-19', 2, 'credito', 123, 1);
+INSERT INTO ventas VALUES(2,'1996-02-19', 3, 'debito', 123, 2);
+INSERT INTO ventas VALUES(3, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
+INSERT INTO ventas VALUES(4, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
+INSERT INTO ventas VALUES(5, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
 
 
 -- Creacion de tabla detalle_ventas
-CREATE TABLE IF NOT EXISTS detalle_ventas(
-    cod_venta int NOT NULL, 
+CREATE TABLE IF NOT EXISTS detalle_ventas( 
     id_detalle int NOT NULL, 
+	cod_venta int NOT NULL,
     cod_producto int NOT NULL,
     cantidad numeric NOT NULL,
     FOREIGN KEY (cod_venta) REFERENCES ventas(codigo),
@@ -75,13 +76,13 @@ CREATE TABLE IF NOT EXISTS detalle_ventas(
     CHECK (cantidad>=0),
 CONSTRAINT PK_DET_VENTAS PRIMARY KEY 
 (cod_venta, id_detalle));
-INSERT INTO detalle_ventas VALUES(001, 1, 1, 1, 10);
-INSERT INTO detalle_ventas VALUES(001, 1, 2, 2, 20);
-INSERT INTO detalle_ventas VALUES(001, 1, 3, 100, 30);
-INSERT INTO detalle_ventas VALUES(002, 2, 4, 1, 40);
-INSERT INTO detalle_ventas VALUES(002, 2, 5, 2, 50);
-INSERT INTO detalle_ventas VALUES(003, 3, 6, 100, 60);
-INSERT INTO detalle_ventas VALUES(003, 3, 7, 1, 70);
+INSERT INTO detalle_ventas VALUES(1, 1, 1, 10);
+INSERT INTO detalle_ventas VALUES(2, 1, 2, 20);
+INSERT INTO detalle_ventas VALUES(3, 2, 3, 100);
+INSERT INTO detalle_ventas VALUES(4, 2, 1, 100);
+INSERT INTO detalle_ventas VALUES(5, 3, 2, 200);
+INSERT INTO detalle_ventas VALUES(6, 3, 3, 100);
+INSERT INTO detalle_ventas VALUES(7, 4, 1, 900);
 
 
 -- Creacion de tabla empleados
@@ -100,75 +101,74 @@ id int PRIMARY KEY,
 INSERT INTO empleados VALUES(11, 'juan', 3321, 10000, 1);
 INSERT INTO empleados VALUES(22, 'predro', 321, 2000, 1);
 INSERT INTO empleados VALUES(33, 'beto', 56543, 30000, 1);
-INSERT INTO empleados VALUES(33, 'marcelo', 5653, 30000, 2);
+INSERT INTO empleados VALUES(34, 'marcelo', 5653, 30000, 2);
 INSERT INTO empleados VALUES(44, 'tio francisco', 6543, 50000, 2);
 
 
 -- Creacion de tabla inventarios
 CREATE TABLE IF NOT EXISTS inventarios(
-    id_local int, 
+    id_local int , 
     cod_producto int,
     existencia numeric NOT NULL,
     FOREIGN KEY (id_local) REFERENCES locales(id),
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
     CHECK (id_local>=0),
     CHECK (cod_producto>=0),
-    CHECK (existencia>=0),
-CONSTRAINT PK_INVENTARIOS PRIMARY KEY 
-(id_local, cod_producto));
+    CHECK (existencia>=0));
 INSERT INTO inventarios VALUES(1, 1, 100);
 INSERT INTO inventarios VALUES(1, 2, 200);
-INSERT INTO inventarios VALUES(2, 100, 300);
+INSERT INTO inventarios VALUES(2, 3, 300);
 INSERT INTO inventarios VALUES(2, 1, 400);
-INSERT INTO inventarios VALUES(2, 100, 500);
+INSERT INTO inventarios VALUES(2, 1, 500);
 
 
 
 -- Creacion de tabla proveedores
-CREATE TABLE IF NOT EXISTS 'proveedores' (  
-'nit' varchar(100) PRIMARY KEY,
-     'nombre' varchar (100) NOT NULL,
-     'dir' varchar (100) NOT NULL,
-     'tel' varchar (10) UNIQUE NOT NULL,
-     'email' varchar (100) UNIQUE NOT NULL,
-     'pag_web' varchar (100)
+CREATE TABLE IF NOT EXISTS proveedores (  
+	 nit varchar(100) PRIMARY KEY,
+     nombre varchar (100) NOT NULL,
+     dir varchar (100) NOT NULL,
+     tel varchar (10) UNIQUE NOT NULL,
+     email varchar (100) UNIQUE NOT NULL,
+     pag_web varchar (100)
 );
 
-INSERT INTO 'proveedores' (nit, nombre, dir, tel, email, pag_web)
-VALUES ('54', 'cemex S.A', 'calle 94 # 37', '5378877', 'cemex@gmail.com', 'www.cem.com' ),
-       ('37', 'Corona', 'carrera 133 # 25', '23058866', 'coron@admin.com', 'www.coron.com.co'),
-       ('63', 'ferre-tornillos', 'calle 13 #5-este', '6885527', 'ferretor@hotmai.com', 'www.fer-tor.com'),
-       ('45', 'delta', 'calle 18 #20', '3843700', 'delta@outlook.com', 'www.delta.com' );
+INSERT INTO proveedores (nit, nombre, dir, tel, email, pag_web)
+VALUES ('54', 'cemex S.A', 'calle 94 # 37', 5378877, 'cemex@gmail.com', 'www.cem.com' ),
+       ('37', 'Corona', 'carrera 133 # 25', 23058866, 'coron@admin.com', 'www.coron.com.co'),
+       ('63', 'ferre-tornillos', 'calle 13 #5-este', 6885527, 'ferretor@hotmai.com', 'www.fer-tor.com'),
+       ('45', 'delta', 'calle 18 #20', 3843700, 'delta@outlook.com', 'www.delta.com' );
 
 -- Creacion de tabla compras
 CREATE TABLE IF NOT EXISTS compras( 
-	codigo int PRIMARY KEY AUTO_INCREMENT,
+	codigo int PRIMARY KEY,
     fecha date NOT NULL,
     total numeric NOT NULL,
     nit_proveedor varchar(10) NOT NULL,
     FOREIGN KEY (nit_proveedor) REFERENCES proveedores(nit)
 );
 
-INSERT INTO 'compras' (codigo, fecha, total, nit_proveedor)
-VALUES (557, '24/12/2019', 50000, '54'),
-       (896, '25/03/2020', 20000, '37'),
-       (364, '11/04/2020', 13000, '63'),
-       (256, '08/08/2020', 300000, '45');
+INSERT INTO compras (codigo, fecha, total, nit_proveedor)
+VALUES (557, '1996-02-19', 50000, '54'),
+       (896, '1996-02-19', 20000, '37'),
+       (364, '1997-02-19', 13000, '63'),
+       (256, '1997-02-19', 300000, '45');
 
 -- Creacion de tabla detalle_compras
 CREATE TABLE IF NOT EXISTS detalle_compras(
+	id_detalle int NOT NULL, 
     cod_compra int NOT NULL, 
-    id_detalle int NOT NULL, 
     cod_producto int NOT NULL,
     cantidad numeric NOT NULL,
     FOREIGN KEY (cod_compra) REFERENCES compras(codigo),
-    FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
-CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
-(cod_compra, id_detalle));
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo));
 
-INSERT INTO 'detalle_compras' (cod_compra, id_detalle, cod_producto, cantidad)
-VALUES (123, 1, 270, 4),
-       (124, 2, 781, 4),
-       (125, 3, 495, 2),
-       (126, 4, 893, 1);
-
+INSERT INTO detalle_compras (id_detalle, cod_compra, cod_producto, cantidad)
+VALUES (123, 557, 1, 4),
+       (124, 557, 2, 4),
+       (125, 364, 3, 2),
+       (126, 364, 1, 1);
+	   
+	   
+	   
+	   
