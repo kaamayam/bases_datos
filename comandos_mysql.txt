@@ -125,13 +125,13 @@ INSERT INTO inventarios VALUES(2, 100, 500);
 
 
 -- Creacion de tabla proveedores
-CREATE TABLE IF NOT EXISTS "proveedores" (  
-"nit" varchar(100) PRIMARY KEY,
-     "nombre" varchar (100) NOT NULL,
-     "dir" varchar (100) NOT NULL,
-     "tel" varchar (10) UNIQUE NOT NULL,
-     "email" varchar (100) UNIQUE NOT NULL,
-     "pag_web" varchar (100)
+CREATE TABLE IF NOT EXISTS 'proveedores' (  
+'nit' varchar(100) PRIMARY KEY,
+     'nombre' varchar (100) NOT NULL,
+     'dir' varchar (100) NOT NULL,
+     'tel' varchar (10) UNIQUE NOT NULL,
+     'email' varchar (100) UNIQUE NOT NULL,
+     'pag_web' varchar (100)
 );
 
 INSERT INTO 'proveedores' (nit, nombre, dir, tel, email, pag_web)
