@@ -1,34 +1,33 @@
-DROP DATABASE ferreamayadb;
-CREATE DATABASE ferreamayadb;
-
 /* Creacion clientes */
-CREATE TABLE clientes(
-    id int PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS clientes(
+    id bigint PRIMARY KEY,
     nombre varchar (100) NOT NULL,
     dir varchar (100),
-    tel int UNIQUE,
+    tel bigint,
     email varchar (100) UNIQUE,
     fecha_nac date,
     CHECK (id>=0),
 	CHECK (tel >= 0));
 
 INSERT INTO clientes(id, nombre,dir, tel, email,fecha_nac) 
-VALUES (123, 'Pedro Pedroza Pérez', 'Cr 50 # 66-171 Robledo', 1234, 'pedro12@hotmail.com', '1990-11-23'),
-(43734, 'Juan Mazo Pérez', 'Cr 51 # 80-171 Robledo', 42158, 'Juancho@gmail.com', '1996-09-23'),
-(10018, 'Karina Mazo Ortega', 'Cr 70 # 77-102 Pachelly-Bello', 30483, 'cual@hotmail.com', '1996-02-19');
+VALUES (12234563, 'Pedro Pedroza Pérez', 'Cr 50 # 66-171 Robledo', 1234, 'pedro12@hotmail.com', '1990-11-23'),
+(437234534, 'Juan Mazo Pérez', 'Cr 51 # 80-171 Robledo', 42158, 'Juancho@gmail.com', '1996-09-23'),
+(100181234567, 'Karina Mazo Ortega', 'Cr 70 # 77-102 Pachelly-Bello', 30483, 'cual@hotmail.com', '1996-02-19'),
+(1110557755, 'Miguel Angel Osorio', 'Cr 39 # 20-31 Boquerón', 3115604078, 'hebermudezg@hotmail.com', '1995-03-25');
+
 
 /* creacion locales */
 CREATE TABLE locales (  
-id int PRIMARY KEY,
+	id int PRIMARY KEY,
+	id_encargdo int,
 	CHECK (id > 0)
 );
-
-INSERT INTO locales VALUES (1), (2);
+INSERT INTO locales VALUES (1, 1110557755), (2, 111077765);
 
 
 /* Creacion de tabla productos */
 CREATE TABLE IF NOT EXISTS productos(
-codigo int PRIMARY KEY,
+	codigo int PRIMARY KEY,
 	nombre varchar(100) NOT NULL UNIQUE,
 	tipo varchar(50) NOT NULL,
 	precio numeric NOT NULL,
@@ -38,9 +37,12 @@ codigo int PRIMARY KEY,
 );
 
 INSERT INTO productos(codigo, nombre, tipo, precio, descripcion)
-VALUES (1, 'Martillo de uña', 'Herramienta', 30000, 'Este tipo de martillo es muy usado por carpinteros y encofradores en el sector de la construcción. Dispone de una cabeza de golpeo algo pequeña en un extremo y por el otro lado, unas uñas que tienen como fin hacer palanca y extraer todo tipo de elementos de fijación: grapas, clavos, tornillos, etc.'),
+VALUES 
+(1, 'Martillo de uña', 'Herramienta', 30000, 'Este tipo de martillo es muy usado por carpinteros y encofradores en el sector de la construcción. Dispone de una cabeza de golpeo algo pequeña en un extremo y por el otro lado, unas uñas que tienen como fin hacer palanca y extraer todo tipo de elementos de fijación: grapas, clavos, tornillos, etc.'),
 (2, 'Hombresolo', 'Herramienta', 20000, 'son unas pinzas que pueden ser inmovilizadas en una cierta posición para así torcer o arrancar diversos objetos o materiales'),
-(3, 'Arena construcción', 'Material', 10000, 'Es un tipo de agregado fino o árido que se utiliza para fabricar hormigón, concreto y mortero; se compone de partículas de rocas trituradas que pueden ser muy pequeñas y finas');
+(3, 'Arena construcción', 'Material', 10000, 'Es un tipo de agregado fino o árido que se utiliza para fabricar hormigón, concreto y mortero; se compone de partículas de rocas trituradas que pueden ser muy pequeñas y finas'),
+(4, 'Ladrillos', 'Material', 200, 'Ladrillos super resisitentes'),
+(5, 'Cemento', 'Material', 500, 'Cemernto de Argos');
 
 -- Creacion de tabla ventas
 CREATE TABLE IF NOT EXISTS ventas( 
@@ -55,11 +57,11 @@ CREATE TABLE IF NOT EXISTS ventas(
     CHECK (codigo>=0)
 );
 
-INSERT INTO ventas VALUES(1,'1996-02-19', 2, 'credito', 123, 1);
-INSERT INTO ventas VALUES(2,'1996-02-19', 3, 'debito', 123, 2);
-INSERT INTO ventas VALUES(3, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
-INSERT INTO ventas VALUES(4, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
-INSERT INTO ventas VALUES(5, '1996-02-19', 2, 'en efectivo sumerce', 43734, 2);
+INSERT INTO ventas VALUES(1,'1996-02-1', 2, 'credito', 123, 1);
+INSERT INTO ventas VALUES(2,'1997-03-1', 3, 'debito', 123, 2);
+INSERT INTO ventas VALUES(3, '1998-04-2', 2, 'en efectivo sumerce', 43734, 2);
+INSERT INTO ventas VALUES(4, '1999-05-6', 2, 'en efectivo sumerce', 1110557755, 2);
+INSERT INTO ventas VALUES(5, '2000-06-8', 2, 'en efectivo sumerce', 1110557755, 2);
 
 
 -- Creacion de tabla detalle_ventas
@@ -78,18 +80,18 @@ CONSTRAINT PK_DET_VENTAS PRIMARY KEY
 (cod_venta, id_detalle));
 INSERT INTO detalle_ventas VALUES(1, 1, 1, 10);
 INSERT INTO detalle_ventas VALUES(2, 1, 2, 20);
-INSERT INTO detalle_ventas VALUES(3, 2, 3, 100);
-INSERT INTO detalle_ventas VALUES(4, 2, 1, 100);
-INSERT INTO detalle_ventas VALUES(5, 3, 2, 200);
-INSERT INTO detalle_ventas VALUES(6, 3, 3, 100);
+INSERT INTO detalle_ventas VALUES(3, 2, 3, 800);
+INSERT INTO detalle_ventas VALUES(4, 2, 5, 600);
+INSERT INTO detalle_ventas VALUES(5, 3, 5, 800);
+INSERT INTO detalle_ventas VALUES(6, 5, 5, 100);
 INSERT INTO detalle_ventas VALUES(7, 4, 1, 900);
 
 
 -- Creacion de tabla empleados
 CREATE TABLE IF NOT EXISTS empleados(  
-id int PRIMARY KEY,
+	 id bigint PRIMARY KEY,
      nombre varchar (100) NOT NULL,
-     tel int NOT NULL,
+     tel bigint NOT NULL,
      salario numeric NOT NULL,
      id_local int NOT NULL,
      CHECK (id>=0),
@@ -98,11 +100,11 @@ id int PRIMARY KEY,
      CHECK (id_local>=0),
      FOREIGN KEY (id_local) REFERENCES locales(id)
 );
-INSERT INTO empleados VALUES(11, 'juan', 3321, 10000, 1);
-INSERT INTO empleados VALUES(22, 'predro', 321, 2000, 1);
-INSERT INTO empleados VALUES(33, 'beto', 56543, 30000, 1);
-INSERT INTO empleados VALUES(34, 'marcelo', 5653, 30000, 2);
-INSERT INTO empleados VALUES(44, 'tio francisco', 6543, 50000, 2);
+INSERT INTO empleados VALUES(111077765, 'juan', 3321, 10000, 1);
+INSERT INTO empleados VALUES(100076544, 'predro', 321, 2000, 1);
+INSERT INTO empleados VALUES(312333211, 'beto', 56543, 30000, 1);
+INSERT INTO empleados VALUES(657767844, 'marcelo', 5653, 30000, 2);
+INSERT INTO empleados VALUES(413234444, 'tio francisco', 6543, 50000, 2);
 
 
 -- Creacion de tabla inventarios
@@ -117,9 +119,11 @@ CREATE TABLE IF NOT EXISTS inventarios(
     CHECK (existencia>=0));
 INSERT INTO inventarios VALUES(1, 1, 100);
 INSERT INTO inventarios VALUES(1, 2, 200);
-INSERT INTO inventarios VALUES(2, 3, 300);
+INSERT INTO inventarios VALUES(1, 3, 300);
+INSERT INTO inventarios VALUES(1, 4, 400);
+INSERT INTO inventarios VALUES(1, 5, 500);
 INSERT INTO inventarios VALUES(2, 1, 400);
-INSERT INTO inventarios VALUES(2, 1, 500);
+INSERT INTO inventarios VALUES(2, 2, 500);
 
 
 
@@ -128,7 +132,7 @@ CREATE TABLE IF NOT EXISTS proveedores (
 	 nit varchar(100) PRIMARY KEY,
      nombre varchar (100) NOT NULL,
      dir varchar (100) NOT NULL,
-     tel varchar (10) UNIQUE NOT NULL,
+     tel bigint NOT NULL,
      email varchar (100) UNIQUE NOT NULL,
      pag_web varchar (100)
 );
@@ -161,14 +165,11 @@ CREATE TABLE IF NOT EXISTS detalle_compras(
     cod_producto int NOT NULL,
     cantidad numeric NOT NULL,
     FOREIGN KEY (cod_compra) REFERENCES compras(codigo),
-    FOREIGN KEY (cod_producto) REFERENCES productos(codigo));
+    FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
+	CONSTRAINT PK_DET_COMPRAS PRIMARY KEY (cod_compra, id_detalle));
 
 INSERT INTO detalle_compras (id_detalle, cod_compra, cod_producto, cantidad)
 VALUES (123, 557, 1, 4),
        (124, 557, 2, 4),
        (125, 364, 3, 2),
        (126, 364, 1, 1);
-	   
-	   
-	   
-	   
