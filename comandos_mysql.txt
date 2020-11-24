@@ -65,26 +65,24 @@ INSERT INTO ventas VALUES(5, '2000-06-8', 2, 'en efectivo sumerce', 1110557755, 
 
 
 -- Creacion de tabla detalle_ventas
-CREATE TABLE IF NOT EXISTS detalle_ventas( 
-    id_detalle int NOT NULL, 
+CREATE TABLE IF NOT EXISTS detalle_ventas(  
 	cod_venta int NOT NULL,
     cod_producto int NOT NULL,
     cantidad numeric NOT NULL,
     FOREIGN KEY (cod_venta) REFERENCES ventas(codigo),
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
     CHECK (cod_venta>=0),
-    CHECK (id_detalle>=0),
     CHECK (cod_producto>=0),
     CHECK (cantidad>=0),
 CONSTRAINT PK_DET_VENTAS PRIMARY KEY 
-(cod_venta, id_detalle));
-INSERT INTO detalle_ventas VALUES(1, 1, 1, 10);
-INSERT INTO detalle_ventas VALUES(2, 1, 2, 20);
-INSERT INTO detalle_ventas VALUES(3, 2, 3, 800);
-INSERT INTO detalle_ventas VALUES(4, 2, 5, 600);
-INSERT INTO detalle_ventas VALUES(5, 3, 5, 800);
-INSERT INTO detalle_ventas VALUES(6, 5, 5, 100);
-INSERT INTO detalle_ventas VALUES(7, 4, 1, 900);
+(cod_venta, cod_producto));
+INSERT INTO detalle_ventas VALUES(1, 1, 10);
+INSERT INTO detalle_ventas VALUES(1, 2, 20);
+INSERT INTO detalle_ventas VALUES(2, 3, 800);
+INSERT INTO detalle_ventas VALUES(2, 5, 600);
+INSERT INTO detalle_ventas VALUES(3, 5, 800);
+INSERT INTO detalle_ventas VALUES(5, 5, 100);
+INSERT INTO detalle_ventas VALUES(4, 1, 900);
 
 
 -- Creacion de tabla empleados
@@ -160,16 +158,15 @@ VALUES (557, '1996-02-19', 50000, '54'),
 
 -- Creacion de tabla detalle_compras
 CREATE TABLE IF NOT EXISTS detalle_compras(
-	id_detalle int NOT NULL, 
     cod_compra int NOT NULL, 
     cod_producto int NOT NULL,
     cantidad numeric NOT NULL,
     FOREIGN KEY (cod_compra) REFERENCES compras(codigo),
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
-	CONSTRAINT PK_DET_COMPRAS PRIMARY KEY (cod_compra, id_detalle));
+	CONSTRAINT PK_DET_COMPRAS PRIMARY KEY (cod_compra, cod_producto));
 
-INSERT INTO detalle_compras (id_detalle, cod_compra, cod_producto, cantidad)
-VALUES (123, 557, 1, 4),
-       (124, 557, 2, 4),
-       (125, 364, 3, 2),
-       (126, 364, 1, 1);
+INSERT INTO detalle_compras (cod_compra, cod_producto, cantidad)
+VALUES (557, 1, 400),
+       (896, 2, 400),
+       (364, 3, 200),
+       (256, 1, 1000);
