@@ -134,11 +134,11 @@ CREATE TABLE IF NOT EXISTS "proveedores" (
      "pag_web" varchar (100)
 );
 
-INSERT INTO "proveedores" ("nit", "nombre", "dir", "tel", "email", "pag_web")
-VALUES (54, "cemex S.A", "calle 94 # 37", 5378877, "cemex@gmail.com", "www.cem.com" ),
-       (37, "Corona, carrera 133 # 25", 23058866, "coron@admin.com", "www.coron.com.co"),
-       (63, "ferre-tornillos", "calle 13 #5-este", 6885527, "ferretor@hotmai.com", "www.fer-tor.com"),
-       (45, "delta", "calle 18 #20", 3843700, "delta@outlook.com", "www.delta.com" );
+INSERT INTO 'proveedores' (nit, nombre, dir, tel, email, pag_web)
+VALUES ('54', 'cemex S.A', 'calle 94 # 37', 5378877, 'cemex@gmail.com', 'www.cem.com' ),
+       ('37', 'Corona, carrera 133 # 25', 23058866, 'coron@admin.com', 'www.coron.com.co'),
+       ('63', 'ferre-tornillos', 'calle 13 #5-este', 6885527, 'ferretor@hotmai.com', 'www.fer-tor.com'),
+       ('45', 'delta', 'calle 18 #20', 3843700, 'delta@outlook.com', 'www.delta.com' );
 
 -- Creacion de tabla compras
 CREATE TABLE IF NOT EXISTS compras( 
@@ -149,11 +149,11 @@ CREATE TABLE IF NOT EXISTS compras(
     FOREIGN KEY (nit_proveedor) REFERENCES proveedores(nit)
 );
 
-INSERT INTO "compras" ("codigo", "fecha", "total", "nit_proveedor")
-VALUES (557, 24/12/2019, 50000, 54),
-       (896, 25/03/2020, 20000, 37),
-       (364, 11/04/2020, 13000, 63),
-       (256, 08/08/2020, 300000, 45);
+INSERT INTO 'compras' (codigo, fecha, total, nit_proveedor)
+VALUES (557, 24/12/2019, 50000, '54'),
+       (896, 25/03/2020, 20000, '37'),
+       (364, 11/04/2020, 13000, '63'),
+       (256, 08/08/2020, 300000, '45');
 
 -- Creacion de tabla detalle_compras
 CREATE TABLE IF NOT EXISTS detalle_compras(
@@ -166,8 +166,9 @@ CREATE TABLE IF NOT EXISTS detalle_compras(
 CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
 (cod_compra, id_detalle));
 
-INSERT INTO "detalle_compras" ("cod_compra","id_detalle","cod_producto","cantidad")
+INSERT INTO 'detalle_compras' (cod_compra, id_detalle, cod_producto, cantidad)
 VALUES (123, 1, 270, 4),
        (124, 2, 781, 4),
        (125, 3, 495, 2),
        (126, 4, 893, 1);
+
