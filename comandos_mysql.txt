@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS ventas(
     fecha date NOT NULL,
     descuento numeric NOT NULL,
     forma_pago varchar(50) NOT NULL,
-    id_cliente int NOT NULL,
+    id_cliente bigint NOT NULL,
     id_local int NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id),
     FOREIGN KEY (id_local) REFERENCES locales(id),
