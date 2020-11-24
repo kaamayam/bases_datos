@@ -84,6 +84,7 @@ CONSTRAINT PK_INVENTARIOS PRIMARY KEY
 
 INSERT INTO "inventarios" ("id_local","cod_producto")
 
+
 -- Creacion de tabla proveedores
 CREATE TABLE IF NOT EXISTS "proveedores" (  
 "nit" varchar(100) PRIMARY KEY,
@@ -95,10 +96,10 @@ CREATE TABLE IF NOT EXISTS "proveedores" (
 );
 
 INSERT INTO "proveedores" ("nit", "nombre", "dir", "tel", "email", "pag_web")
-VALUES (54, cemex S.A, calle 94 # 37,5378877, cemex@gmail.com, www.cem.com ),
-       (37, Corona, carrera 133 # 25, 23058866, coron@admin.com, www.coron.com.co),
-       (63, ferre-tornillos, calle 13 #5-este,6885527, ferretor@hotmai.com, www.fer-tor.com),
-       (45, delta, calle 18 #20, 3843700, delta@outlook.com, www.delta.com );
+VALUES (54, "cemex S.A", "calle 94 # 37", 5378877, "cemex@gmail.com", "www.cem.com" ),
+       (37, "Corona, carrera 133 # 25", 23058866, "coron@admin.com", "www.coron.com.co"),
+       (63, "ferre-tornillos", "calle 13 #5-este", 6885527, "ferretor@hotmai.com", "www.fer-tor.com"),
+       (45, "delta", "calle 18 #20", 3843700, "delta@outlook.com", "www.delta.com" );
 
 -- Creacion de tabla compras
 CREATE TABLE IF NOT EXISTS compras( 
