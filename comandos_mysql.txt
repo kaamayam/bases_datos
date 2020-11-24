@@ -43,8 +43,8 @@ codigo int PRIMARY KEY AUTO_INCREMENT,
     fecha date NOT NULL,
     descuento numeric NOT NULL,
     forma_pago varchar(50) NOT NULL,
-    id_cliente int NOT NULL,
-    id_local int NOT NULL,
+    id_cliente varchar(10) NOT NULL,
+    id_local char(1) NOT NULL,
     FOREIGN KEY (id_cliente) REFERENCES clientes(id),
     FOREIGN KEY (id_local) REFERENCES locales(id)
 );
@@ -63,17 +63,17 @@ CONSTRAINT PK_DET_VENTAS PRIMARY KEY
 
 -- Creacion de tabla empleados
 CREATE TABLE IF NOT EXISTS `empleados` (  
-`id` int PRIMARY KEY,
+`id` varchar(10) PRIMARY KEY,
      `nombre` varchar (100) NOT NULL,
-     `tel` int UNIQUE NOT NULL,
+     `tel` varchar (10) UNIQUE NOT NULL,
      `salario` numeric NOT NULL,
-     `id_local` int NOT NULL,
+     `id_local` char (1) NOT NULL,
      FOREIGN KEY (id_local) REFERENCES locales(id)
 );
 
 -- Creacion de tabla inventarios
 CREATE TABLE IF NOT EXISTS inventarios(
-    id_local int, 
+    id_local char (1), 
     cod_producto int,
     existencia numeric NOT NULL,
     FOREIGN KEY (id_local) REFERENCES locales(id),
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
 `nit` varchar(100) PRIMARY KEY,
      `nombre` varchar (100) NOT NULL,
      `dir` varchar (100) NOT NULL,
-     `tel` int UNIQUE NOT NULL,
+     `tel` varchar (10) UNIQUE NOT NULL,
      `email` varchar (100) UNIQUE NOT NULL,
      `pag_web` varchar (100)
 );
@@ -101,6 +101,12 @@ CREATE TABLE IF NOT EXISTS compras(
     FOREIGN KEY (nit_proveedor) REFERENCES proveedores(nit)
 );
 
+INSERT INTO 'compras' (codigo, fecha, total, nit_proveedor)
+VALUES (557, 24/12/2019, 50000, 54),
+       (896, 25/03/2020, 20000, 37),
+       (364, 11/04/2020, 13000, 63),
+       (256, 08/08/2020, 300000, 45);
+
 -- Creacion de tabla detalle_compras
 CREATE TABLE IF NOT EXISTS detalle_compras(
     cod_compra int NOT NULL, 
@@ -111,3 +117,9 @@ CREATE TABLE IF NOT EXISTS detalle_compras(
     FOREIGN KEY (cod_producto) REFERENCES productos(codigo),
 CONSTRAINT PRI_DET_ORDENES PRIMARY KEY 
 (cod_compra, id_detalle));
+
+INSERT INTO 'detalle_compras' (cod_compra,id_detalle,cod_producto,cantidad)
+VALUES (123, 1, 270, 4),
+       (124, 2, 781, 4),
+       (125, 3, 495, 2),
+       (126, 4, 893, 1);
