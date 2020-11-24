@@ -6,20 +6,20 @@ CREATE TABLE IF NOT EXISTS clientes(
     tel bigint,
     email varchar (100) UNIQUE,
     fecha_nac date,
-    CHECK (id>=0),
-	CHECK (tel >= 0));
+    CHECK (id>=0 and id < 10000000000),
+	CHECK (tel >= 0 and tel < 10000000000));
 
 INSERT INTO clientes(id, nombre,dir, tel, email,fecha_nac) 
-VALUES (12234563, 'Pedro Pedroza Pérez', 'Cr 50 # 66-171 Robledo', 1234, 'pedro12@hotmail.com', '1990-11-23'),
-(437234534, 'Juan Mazo Pérez', 'Cr 51 # 80-171 Robledo', 42158, 'Juancho@gmail.com', '1996-09-23'),
-(100181234567, 'Karina Mazo Ortega', 'Cr 70 # 77-102 Pachelly-Bello', 30483, 'cual@hotmail.com', '1996-02-19'),
+VALUES (12234563, 'Pedro Pedroza Pérez', 'Cr 50 # 66-171 Robledo', 4512309, 'pedro12@hotmail.com', '1970-11-23'),
+(43723453, 'Juan Mazo Pérez', 'Cr 51 # 80-171 Robledo', 3014489030, 'Juancho@gmail.com', '1976-09-23'),
+(1001812345, 'Karina Mazo Ortega', 'Cr 70 # 77-102 Pachelly-Bello', 3048356, 'karim@hotmail.com', '1996-02-19'),
 (1110557755, 'Miguel Angel Osorio', 'Cr 39 # 20-31 Boquerón', 3115604078, 'hebermudezg@hotmail.com', '1995-03-25');
 
 
 /* creacion locales */
 CREATE TABLE locales (  
 	id int PRIMARY KEY,
-	id_encargdo int,
+	id_encargado int,
 	CHECK (id > 0)
 );
 INSERT INTO locales VALUES (1, 1110557755), (2, 111077765);
@@ -92,17 +92,17 @@ CREATE TABLE IF NOT EXISTS empleados(
      tel bigint NOT NULL,
      salario numeric NOT NULL,
      id_local int NOT NULL,
-     CHECK (id>=0),
-     CHECK (tel>=0),
+     CHECK (id>=0 and id < 10000000000),
+     CHECK (tel>=0 and tel < 10000000000),
      CHECK (salario>=0),
      CHECK (id_local>=0),
      FOREIGN KEY (id_local) REFERENCES locales(id)
 );
-INSERT INTO empleados VALUES(111077765, 'juan', 3321, 10000, 1);
-INSERT INTO empleados VALUES(100076544, 'predro', 321, 2000, 1);
-INSERT INTO empleados VALUES(312333211, 'beto', 56543, 30000, 1);
-INSERT INTO empleados VALUES(657767844, 'marcelo', 5653, 30000, 2);
-INSERT INTO empleados VALUES(413234444, 'tio francisco', 6543, 50000, 2);
+INSERT INTO empleados VALUES(111077765, 'Juan Hernandez', 3321, 10000, 1);
+INSERT INTO empleados VALUES(100076544, 'Pablo Jaramillo Duarte', 321, 2000, 1);
+INSERT INTO empleados VALUES(312333211, 'Beto Molina Betancur', 56543, 30000, 1);
+INSERT INTO empleados VALUES(657767844, 'Marcelo Arango Piedrahita', 5653, 30000, 2);
+INSERT INTO empleados VALUES(413234444, 'Francisco Soler Monsalve', 6543, 50000, 2);
 
 
 -- Creacion de tabla inventarios
@@ -151,10 +151,10 @@ CREATE TABLE IF NOT EXISTS compras(
 );
 
 INSERT INTO compras (codigo, fecha, total, nit_proveedor)
-VALUES (557, '1996-02-19', 50000, '54'),
-       (896, '1996-02-19', 20000, '37'),
-       (364, '1997-02-19', 13000, '63'),
-       (256, '1997-02-19', 300000, '45');
+VALUES (557, '2019-02-19', 50000, '54'),
+       (896, '2020-02-19', 20000, '37'),
+       (364, '2020-02-19', 13000, '63'),
+       (256, '2020-02-19', 300000, '45');
 
 -- Creacion de tabla detalle_compras
 CREATE TABLE IF NOT EXISTS detalle_compras(
