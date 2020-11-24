@@ -59,7 +59,6 @@
                     }
 
 
-
                     $sql = "SELECT * FROM clientes WHERE nombre LIKE '%$buscar%'";
                     if($result = mysqli_query($link, $sql)){
                         if(mysqli_num_rows($result) > 0){
@@ -73,7 +72,7 @@
                                         echo "<th>Direccion</th>";
                                         echo "<th>Telefono</th>";
                                         echo "<th>Email</th>";
-                                        echo "<th>Fecah de Nacimiento</th>";
+                                        echo "<th>Fecha de Nacimiento</th>";
                                         echo "<th>Opciones</th>";
                                     echo "</tr>";
                                 echo "</thead>";
