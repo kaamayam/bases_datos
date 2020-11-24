@@ -57,9 +57,9 @@ CREATE TABLE IF NOT EXISTS ventas(
     CHECK (codigo>=0)
 );
 
-INSERT INTO ventas VALUES(1,'1996-02-1', 2, 'credito', 123, 1);
-INSERT INTO ventas VALUES(2,'1997-03-1', 3, 'debito', 123, 2);
-INSERT INTO ventas VALUES(3, '1998-04-2', 2, 'en efectivo sumerce', 43734, 2);
+INSERT INTO ventas VALUES(1,'1996-02-1', 2, 'credito', 12234563, 1);
+INSERT INTO ventas VALUES(2,'1997-03-1', 3, 'debito', 12234563, 2);
+INSERT INTO ventas VALUES(3, '1998-04-2', 2, 'en efectivo sumerce', 12234563, 2);
 INSERT INTO ventas VALUES(4, '1999-05-6', 2, 'en efectivo sumerce', 1110557755, 2);
 INSERT INTO ventas VALUES(5, '2000-06-8', 2, 'en efectivo sumerce', 1110557755, 2);
 
