@@ -115,9 +115,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){  // Usamos metodo post para insertar e
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
-                        <h2>Create Record</h2>
+                        <h2>Crear Cliente</h2>
                     </div>
-                    <p>Please fill this form and submit to add employee record to the database.</p>
+                    <p>Por favo llene la siguiente información.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
 
@@ -158,8 +158,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){  // Usamos metodo post para insertar e
                             <span class="help-block"><?php echo $fecha_nac_err;?></span>
                         </div>
 
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-default">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Guardar">
+                        <a href="index.php" class="btn btn-default">Cancelar</a>
                     </form>
                 </div>
             </div>        
