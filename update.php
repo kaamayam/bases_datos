@@ -168,7 +168,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     <div class="page-header">
                         <h2>Actualizar registros</h2>
                     </div>
-                    <p>Por favor edite y suba los cambios</p>
+                    <p>Por favor, edite y guarde los cambios</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
 
@@ -209,7 +209,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                             <span class="help-block"><?php echo $fecha_nac_err;?></span>
                         </div>
 
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="submit" class="btn btn-primary" value="Guardar">
                         <a href="index.php" class="btn btn-default">Cancel</a>
                     </form>
                 </div>

@@ -117,7 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){  // Usamos metodo post para insertar e
                     <div class="page-header">
                         <h2>Crear Cliente</h2>
                     </div>
-                    <p>Por favo llene la siguiente información.</p>
+                    <p>Por favor, diligencie la siguiente información.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
 
